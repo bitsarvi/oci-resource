@@ -24,9 +24,9 @@ def read_readme():
     with open(os.path.join(here, 'README.md')) as f:
         return f.read()
 
-#def get_requirements():
-#    with open(os.path.join(here, 'requirements.txt')) as f:
-#        return f.readlines()
+def get_requirements():
+    with open(os.path.join(here, 'requirements.txt')) as f:
+        return f.readlines()
 
 setup(
     name = "ocios-resource",
@@ -41,6 +41,7 @@ setup(
     keywords = [
     ],
     packages = [ 'ocios_resource' ],
+    install_requires = get_requirements(),
     include_package_data = True,
     entry_points = {
         'console_scripts': [

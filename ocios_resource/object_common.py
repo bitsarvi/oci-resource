@@ -22,12 +22,8 @@ def log(msg):
 def parse_input(input):
     ns = input['source']['ns']
     bucket = input['source']['bucket']
-    version = None
-    if ('version' in input.keys()) and ('version' in input['version'].keys()):
-        version = input['version']['version']
-    regexp = ''
-    if 'regexp' in input['source']:
-        regexp = input['source']['regexp']
+    version = input.get('version', None)
+    regexp = input['source'].get('regexp', '')
     return [ns, bucket, version, regexp]
 
 def is_match(filename, regex):

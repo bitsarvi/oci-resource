@@ -21,9 +21,11 @@ import sys
 
 def object_check(instream):
     input = json.load(instream)
-    object_common.log('object_check')
+    object_common.log('1. object_check')
     client = ocios.get_oci_client(input)
     ns, bucket, version, regexp = object_common.parse_input(input)
+    object_common.log('1. object_check - returning')
+    return []
 
 
 

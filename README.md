@@ -16,7 +16,7 @@ This resource is based on the official [S3 resource](https://github.com/concours
     {
       "user": "...",
       "fingerprint": "...",
-      "key_file": "...",
+      "apikey": "...",
       "tenancy": "...",
       "region": "..."
     }

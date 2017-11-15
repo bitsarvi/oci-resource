@@ -51,12 +51,3 @@ def get_object(input, name):
     client = get_oci_client(input)
     ns = input['source']['ns']
     bucket = input['source']['bucket']
-
-
-
-
-
-
-
-
-

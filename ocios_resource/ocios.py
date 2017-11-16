@@ -38,13 +38,19 @@ def get_oci_client(input):
     config = get_oci_config(input)
     return oci.object_storage.ObjectStorageClient(config)
 
-def get_object_list(input):
+
+def get_versions(input):
     client = get_oci_client(input)
     ns = input['source']['ns']
     bucket = input['source']['bucket']
     regex = input['source']['regexp']
 
-    objects = client.list_objects(ns, bucket)
+    prefix = object_common.get_prefix(regex)
+
+    response = client.list_objects(ns, bucket, prefix=prefix)
+    if response:
+        objects = response.data.objects
+        object_common.log("Found files = " + str(len(objects)))
     return objects
 
 def get_object(input, name):

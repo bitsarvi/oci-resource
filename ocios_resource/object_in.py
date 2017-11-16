@@ -20,11 +20,10 @@ import json
 import os
 import sys
 
-def object_in(destdir, instream):
-    input = json.load(instream)
+def object_in(destdir, data):
     object_common.log('object_in')
-    ns, bucket, version, regexp = object_common.parse_input(input)
-    client = ocios.get_oci_client(input)
+    ns, bucket, version, regexp = object_common.parse_input(data)
+    client = ocios.get_oci_client(data)
     obj = client.get_object(ns, bucket, "foo")
     version_dest = os.path.join(destdir, "file")
     with open(version_dest, "w") as f:
@@ -34,7 +33,7 @@ def object_in(destdir, instream):
 def main():
     destdir = sys.argv[1]
     object_common.log('Output directory: {}'.format(destdir))
-    version = object_in(destdir, sys.stdin)
+    version = object_in(destdir, json.load(sys.stdin))
     print(json.dumps({'version': {'version': version}}))
 
 if __name__ == 'main':

@@ -20,15 +20,14 @@ import json
 import os
 import sys
 
-def object_out(srcdir, instream):
-    input = json.load(instream)
+def object_out(srcdir, data):
     object_common.log('object_out')
     version = ''
     return version
 
 def main():
     srcdir = sys.argv[1]
-    version = object_out(srcdir, sys.stdin)
+    version = object_out(srcdir, json.load(sys.stdin))
     print(json.dumps({'version': {'version': version}}))
 
 if __name__ == 'main':

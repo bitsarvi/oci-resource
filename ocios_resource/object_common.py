@@ -24,8 +24,21 @@ def parse_input(input):
     bucket = input['source']['bucket']
     version = input.get('version', None)
     regexp = input['source'].get('regexp', '')
+    if not regexp:
+        raise ValueError("regexp cannot be empty")
     return [ns, bucket, version, regexp]
 
 def is_match(filename, regex):
     return re.match(regex, filename)
+
+def get_prefix(filename):
+    prefix_regexp = re.compile("^[-\w]+")
+    prefix = None
+
+    match = prefix_regexp.match(filename)
+    if match:
+        prefix = match.group(0)
+
+    return prefix
+
 

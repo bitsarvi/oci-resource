@@ -19,18 +19,14 @@ from . import object_common, ocios
 import json
 import sys
 
-def object_check(instream):
-    input = json.load(instream)
-    object_common.log('1. object_check')
-    client = ocios.get_oci_client(input)
-    ns, bucket, version, regexp = object_common.parse_input(input)
-    object_common.log('1. object_check - returning')
+
+def object_check(data):
+    versions = ocios.get_versions(data)
     return []
 
 
-
 def main():
-    print(json.dumps(object_check(sys.stdin)))
+    print(json.dumps(object_check(json.load(sys.stdin))))
 
 if __name__ == 'main':
     main()

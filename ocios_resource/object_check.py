@@ -28,5 +28,6 @@ def object_check(data):
 def main():
     print(json.dumps(object_check(json.load(sys.stdin))))
 
+
 if __name__ == 'main':
     main()

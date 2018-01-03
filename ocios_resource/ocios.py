@@ -18,6 +18,7 @@ from distutils.version import LooseVersion
 import os
 import oci
 
+
 def get_oci_config(input):
     cwd = os.getcwd()
     key_file = cwd + '/oci_api_key.pem'
@@ -33,6 +34,7 @@ def get_oci_config(input):
     }
     oci.config.validate_config(config)
     return config
+
 
 def get_oci_client(input):
     config = get_oci_config(input)
@@ -52,6 +54,7 @@ def get_versions(input):
         objects = response.data.objects
         object_common.log("Found files = " + str(len(objects)))
     return objects
+
 
 def get_object(input, name):
     client = get_oci_client(input)

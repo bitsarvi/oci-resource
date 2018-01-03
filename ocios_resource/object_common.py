@@ -15,9 +15,11 @@
 import re
 import sys
 
+
 def log(msg):
     sys.stderr.write(msg + '\n')
     return
+
 
 def parse_input(input):
     ns = input['source']['ns']
@@ -28,8 +30,10 @@ def parse_input(input):
         raise ValueError("regexp cannot be empty")
     return [ns, bucket, version, regexp]
 
+
 def is_match(filename, regex):
     return re.match(regex, filename)
+
 
 def get_prefix(filename):
     prefix_regexp = re.compile("^[-\w]+")
@@ -40,5 +44,3 @@ def get_prefix(filename):
         prefix = match.group(0)
 
     return prefix
-
-

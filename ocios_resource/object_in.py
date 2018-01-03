@@ -20,6 +20,7 @@ import json
 import os
 import sys
 
+
 def object_in(destdir, data):
     object_common.log('object_in')
     ns, bucket, version, regexp = object_common.parse_input(data)
@@ -30,11 +31,13 @@ def object_in(destdir, data):
         f.write(obj.data)
     return version
 
+
 def main():
     destdir = sys.argv[1]
     object_common.log('Output directory: {}'.format(destdir))
     version = object_in(destdir, json.load(sys.stdin))
     print(json.dumps({'version': {'version': version}}))
+
 
 if __name__ == 'main':
     main()

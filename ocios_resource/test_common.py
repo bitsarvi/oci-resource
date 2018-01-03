@@ -18,6 +18,7 @@ import unittest
 
 from . import object_common
 
+
 class TestCommon(unittest.TestCase):
     def setUp(self):
         pass
@@ -39,6 +40,6 @@ class TestCommon(unittest.TestCase):
         self.assertEquals(object_common.get_prefix('foo-([0-9])-1234'), 'foo-')
         self.assertEquals(object_common.get_prefix('([0-9])-1234'), None)
 
+
 if __name__ == '__main__':
     unittest.main()
-

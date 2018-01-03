@@ -29,21 +29,21 @@ def get_requirements():
         return f.readlines()
 
 setup(
-    name = "ocios-resource",
-    version = '0.1.0',
-    description = 'Concourse CI resource for OCI Object Store.',
-    long_description = read_readme(),
-    url = 'https://github.com/bitsarvi/ocios-resource',
-    author = 'Oracle',
-    license = 'Apache 2.0',
-    classifiers = [
+    name="ocios-resource",
+    version='0.1.0',
+    description='Concourse CI resource for OCI Object Store.',
+    long_description=read_readme(),
+    url='https://github.com/bitsarvi/ocios-resource',
+    author='Oracle',
+    license='Apache 2.0',
+    classifiers=[
     ],
-    keywords = [
+    keywords=[
     ],
-    packages = [ 'ocios_resource' ],
-    install_requires = get_requirements(),
-    include_package_data = True,
-    entry_points = {
+    packages=['ocios_resource'],
+    install_requires=get_requirements(),
+    include_package_data=True,
+    entry_points={
         'console_scripts': [
             'check = ocios_resource.object_check:main',
             'in = ocios_resource.object_in:main',

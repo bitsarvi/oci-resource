@@ -1,0 +1,77 @@
+---
+groups:
+  - name: concourse-oci-object
+    jobs:
+      - publish-resource
+      - fetch-object
+
+jobs:
+  - name: publish-resource
+    serial: true
+    plan:
+      - aggregate:
+        - {trigger: true, get: package-src}
+      - task: build-package
+        config:
+          image_resource:
+            type: docker-image
+            source:
+              repository: python
+              tag: 2-alpine
+          platform: linux
+          inputs:
+          - name: package-src
+          outputs:
+          - name: package-out
+          run:
+            path: sh
+            args:
+            - -exc
+            - |
+              cd package-src
+              python setup.py sdist
+              mkdir ../package-out/dist
+              cp Dockerfile ../package-out
+              cp dist/*.tar.gz ../package-out/dist
+      - put: package-image
+        params:
+          build: package-out
+
+  - name: fetch-object
+    serial: true
+    plan:
+        - {trigger: true, get: single-file, resource: single-file}
+
+resources:
+  - name: package-src
+    type: git
+    source:
+      uri: https://github.com/((github-org))/ocios-resource.git
+      username: ((github-user))
+      password: ((github-password))
+
+  - name: package-image
+    type: docker-image
+    source:
+      email: {{docker-hub-email}}
+      username: {{docker-hub-username}}
+      password: {{docker-hub-password}}
+      repository: {{docker-hub-repo}}
+
+  - name: single-file
+    type: ocios-resource
+    source:
+      ns:          {{oracle-namespace}}
+      bucket:      {{oracle-bucket}}
+      user:        {{oracle-user}}
+      fingerprint: {{oracle-fingerprint}}
+      apikey:      {{oracle-apikey}}
+      tenancy:     {{oracle-tenancy}}
+      region:      {{oracle-region}}
+      regexp:      "file([0-9]+).txt"
+
+resource_types:
+  - name: ocios-resource
+    type: docker-image
+    source:
+      repository: {{docker-hub-repo}}

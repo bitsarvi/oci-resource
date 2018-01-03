@@ -40,7 +40,9 @@ jobs:
   - name: fetch-object
     serial: true
     plan:
-        - {trigger: true, get: single-file, resource: single-file}
+        - aggregate:
+          - {trigger: true, passed: [publish-resource], get: package-image}
+          - {trigger: true, get: single-file, resource: single-file}
 
 resources:
   - name: package-src

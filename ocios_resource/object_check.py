@@ -22,7 +22,7 @@ import sys
 
 def object_check(data):
     versions = ocios.get_versions(data)
-    return []
+    return [{"ver": "1"}]
 
 
 def main():

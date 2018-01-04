@@ -21,6 +21,7 @@ import sys
 
 
 def object_check(data):
+    object_common.log("Checking call")
     versions = ocios.get_versions(data)
     return [{"ver": "1"}]
 

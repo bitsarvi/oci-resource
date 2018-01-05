@@ -27,6 +27,8 @@ def parse_input(req):
     version = req.get('version', None)
     regexp = req['source'].get('regexp', '')
     log('ns = '+ns+', bucket='+bucket+' v='+str(version)+' re='+regexp)
+    if version and not version.get('path', None):
+        version = None
     return [ns, bucket, version, regexp]
 
 

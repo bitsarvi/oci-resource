@@ -33,7 +33,8 @@ def parse_input(req):
     if version and not version.get('path', None):
         version = None
     log('v ='+pprint.pformat(version))
-    return [ns, bucket, version, regexp]
+    raise ValueError("debug")
+    # return [ns, bucket, version, regexp]
 
 
 def is_match(filename, regex):

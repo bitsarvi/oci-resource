@@ -18,7 +18,7 @@ from distutils.version import LooseVersion
 import re
 import os
 import oci
-import pprint
+
 
 def get_oci_config(req):
     cwd = os.getcwd()
@@ -68,9 +68,8 @@ def get_versions(req):
                         versions.append({'path': o.name, 'metadata': metadata})
         if len(versions) > 0:
             versions = sorted(versions, key=lambda x: LooseVersion(x['path']), reverse=False)
-    object_common.log(pprint.pformat(versions, indent=4))
-    raise ValueError("foobar")
-    # return versions
+    # object_common.log(pprint.pformat(versions, indent=4))
+    return versions
 
 
 def get_object(req, name):

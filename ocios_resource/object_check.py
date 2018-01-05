@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from . import ocios
+from . import object_common, ocios
 
 import json
 import sys
@@ -22,7 +22,9 @@ import sys
 
 def object_check(data):
     versions = ocios.get_versions(data)
-    return versions
+    object_common.log(json.dumps(versions))
+    raise ValueError("dump")
+    # return versions
 
 
 def main():

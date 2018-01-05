@@ -22,9 +22,7 @@ import sys
 
 def object_check(data):
     versions = ocios.get_versions(data)
-    object_common.log(json.dumps(versions))
-    raise ValueError("dump")
-    # return versions
+    return versions
 
 
 def main():

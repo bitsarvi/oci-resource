@@ -56,19 +56,20 @@ def get_versions(req):
 
     response = client.list_objects(ns, bucket, prefix=prefix)
     versions = []
-    if response and len(response.data.objects):
-        pattern = re.compile(regexp)
-        for o in response.data.objects:
-            m = pattern.match(o.name)
-            if m:
-                if len(m.groups()) == 1:
-                    v = m.group(1)
-                    if not latest or LooseVersion(o.name) >= LooseVersion(latest):
-                        metadata = [{'name': 'filename', 'value': o.name}, {'name': 'version', 'value': v}]
-                        versions.append({'path': o.name, 'metadata': metadata})
-        if len(versions) > 0:
-            versions = sorted(versions, key=lambda x: LooseVersion(x['path']), reverse=False)
-    return versions
+    raise ValueError("foo")
+    # if response and len(response.data.objects):
+    #     pattern = re.compile(regexp)
+    #     for o in response.data.objects:
+    #         m = pattern.match(o.name)
+    #         if m:
+    #             if len(m.groups()) == 1:
+    #                 v = m.group(1)
+    #                 if not latest or LooseVersion(o.name) >= LooseVersion(latest):
+    #                     metadata = [{'name': 'filename', 'value': o.name}, {'name': 'version', 'value': v}]
+    #                     versions.append({'path': o.name, 'metadata': metadata})
+    #     if len(versions) > 0:
+    #         versions = sorted(versions, key=lambda x: LooseVersion(x['path']), reverse=False)
+    # return versions
 
 
 def get_object(req, name):

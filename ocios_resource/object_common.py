@@ -23,13 +23,15 @@ def log(msg):
 
 
 def parse_input(req):
+    log('parse input')
     ns = req['source']['ns']
     bucket = req['source']['bucket']
     version = req.get('version', None)
     regexp = req['source'].get('regexp', '')
     log('ns = '+ns+', bucket='+bucket+' v='+pprint.pformat(version, indent=4)+' re='+regexp)
-    if version and not version.get('path', None):
-        version = None
+
+    # if version and not version.get('path', None):
+    #     version = None
     return [ns, bucket, version, regexp]
 
 

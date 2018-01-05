@@ -18,10 +18,10 @@ import unittest
 import json
 import os
 
-from . import object_check
+from . import object_in
 
 
-class TestCheck(unittest.TestCase):
+class TestIn(unittest.TestCase):
     def setUp(self):
         with open(os.environ['OCI_CONFIG'], "r") as f:
             self.srcdata = json.load(f)
@@ -32,29 +32,14 @@ class TestCheck(unittest.TestCase):
         self.srcdata['apikey'] = apikey
         self.srcdata['ns'] = 'cloudfoundry'
 
-    def test_nosuchfile(self):
+    def test_in(self):
         self.srcdata['bucket'] = 'test'
-        self.srcdata['regexp'] = 'nosuchfile'
-        args = {
-            'source': self.srcdata
-        }
-        self.assertEquals(object_check.object_check(args), [])
-
-        self.srcdata['bucket'] = 'test'
-        self.srcdata['regexp'] = 'test-(\d+).txt'
-        args = {
-            'source': self.srcdata
-        }
-        self.assertEquals(len(object_check.object_check(args)), 3)
-
-        self.srcdata['bucket'] = 'test'
-        self.srcdata['regexp'] = 'test-(\d+).txt'
+        filespec = {"path": "test-2.txt"}
         args = {
             'source': self.srcdata,
-            'version': {"path": "test-2.txt"}
+            'version': filespec
         }
-        self.assertEquals(len(object_check.object_check(args)), 2)
-
+        self.assertEquals(object_in.object_in(".", args), filespec)
 
 
 if __name__ == '__main__':

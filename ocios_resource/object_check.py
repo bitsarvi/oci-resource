@@ -14,16 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from . import object_common, ocios
+from . import ocios
 
 import json
 import sys
 
 
 def object_check(data):
-    object_common.log("Checking call")
     versions = ocios.get_versions(data)
-    return [{"ver": "1"}]
+    return versions
 
 
 def main():

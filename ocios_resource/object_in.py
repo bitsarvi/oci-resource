@@ -24,11 +24,14 @@ import sys
 def object_in(destdir, data):
     object_common.log('object_in')
     ns, bucket, version, regexp = object_common.parse_input(data)
+    if not version:
+        raise ValueError("No input file specified")
+    fname = version["path"]
     client = ocios.get_oci_client(data)
-    obj = client.get_object(ns, bucket, "foo")
-    version_dest = os.path.join(destdir, "file")
+    obj = client.get_object(ns, bucket, fname)
+    version_dest = os.path.join(destdir, fname)
     with open(version_dest, "w") as f:
-        f.write(obj.data)
+        f.write(obj.data.content)
     return version
 
 

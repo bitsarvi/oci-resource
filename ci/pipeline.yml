@@ -70,7 +70,7 @@ resources:
       apikey:      {{oracle-apikey}}
       tenancy:     {{oracle-tenancy}}
       region:      {{oracle-region}}
-      regexp:      "file([0-9]+).txt"
+      regexp:      "test-([0-9]+).txt"
 
 resource_types:
   - name: ocios-resource

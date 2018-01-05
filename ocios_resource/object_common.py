@@ -21,13 +21,12 @@ def log(msg):
     return
 
 
-def parse_input(input):
-    ns = input['source']['ns']
-    bucket = input['source']['bucket']
-    version = input.get('version', None)
-    regexp = input['source'].get('regexp', '')
-    if not regexp:
-        raise ValueError("regexp cannot be empty")
+def parse_input(req):
+    ns = req['source']['ns']
+    bucket = req['source']['bucket']
+    version = req.get('version', None)
+    regexp = req['source'].get('regexp', '')
+    log('ns = '+ns+', bucket='+bucket+' v='+str(version)+' re='+regexp)
     return [ns, bucket, version, regexp]
 
 

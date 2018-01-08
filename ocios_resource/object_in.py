@@ -26,7 +26,8 @@ def object_in(destdir, data):
     ns, bucket, version, regexp = object_common.parse_input(data)
     if not version:
         raise ValueError("No input file specified")
-    fname = version["path"]
+    # fname = version["path"]
+    fname = version
     client = ocios.get_oci_client(data)
     obj = client.get_object(ns, bucket, fname)
     version_dest = os.path.join(destdir, fname)

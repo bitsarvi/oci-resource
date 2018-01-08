@@ -24,7 +24,6 @@ import pprint
 def object_check(data):
     object_common.log(pprint.pformat(data, indent=2))
     versions = ocios.get_versions(data)
-    versions = [{'path': "test-2.txt"}]
     return versions
 
 

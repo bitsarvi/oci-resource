@@ -50,7 +50,7 @@ def get_versions(req):
 
     latest = None
     if version:
-        latest = version['path']
+        latest = version['version']
 
     prefix = object_common.get_prefix(regexp)
 

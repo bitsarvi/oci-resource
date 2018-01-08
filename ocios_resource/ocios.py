@@ -66,7 +66,7 @@ def get_versions(req):
                     if not latest or LooseVersion(o.name) >= LooseVersion(latest):
                         # metadata = [{'name': 'filename', 'value': o.name}, {'name': 'version', 'value': v}]
                         # versions.append({'path': o.name, 'metadata': metadata})
-                        versions.append({'path': o.name})
+                        versions.append({'version': o.name})
         if len(versions) > 0:
             versions = sorted(versions, key=lambda x: LooseVersion(x['path']), reverse=False)
     # object_common.log(pprint.pformat(versions, indent=4))

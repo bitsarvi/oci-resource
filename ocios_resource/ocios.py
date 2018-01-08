@@ -48,9 +48,10 @@ def get_versions(req):
     if len(regexp) == 0:
         raise ValueError("regexp cannot be empty")
 
-    latest = None
-    if version:
-        latest = version['version']
+    latest = version
+    # latest = None
+    # if version:
+    #     latest = version['version']
 
     prefix = object_common.get_prefix(regexp)
 

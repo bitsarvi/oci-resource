@@ -68,7 +68,7 @@ def get_versions(req):
                         # versions.append({'path': o.name, 'metadata': metadata})
                         versions.append({'version': o.name})
         if len(versions) > 0:
-            versions = sorted(versions, key=lambda x: LooseVersion(x['path']), reverse=False)
+            versions = sorted(versions, key=lambda x: LooseVersion(x['version']), reverse=False)
     # object_common.log(pprint.pformat(versions, indent=4))
     return versions
 

@@ -3,7 +3,7 @@ groups:
   - name: concourse-oci-object
     jobs:
       - publish-resource
-      - fetch-object
+      - fetch-objects
 
 jobs:
   - name: publish-resource
@@ -37,12 +37,31 @@ jobs:
         params:
           build: package-out
 
-  - name: fetch-object
+  - name: fetch-objects
     serial: true
     plan:
-        - aggregate:
-          - {trigger: true, passed: [publish-resource], get: package-image}
-          - {trigger: true, get: single-file, resource: single-file}
+      - aggregate:
+        - {trigger: true, passed: [publish-resource], get: package-image}
+        - {trigger: true, get: small-file, resource: small-file}
+        - {trigger: true, get: large-file, resource: large-file}
+      - task: list-downloads
+        config:
+          image_resource:
+            type: docker-image
+            source:
+              repository: python
+              tag: 2-alpine
+          platform: linux
+          inputs:
+          - name: small-file
+          - name: large-file
+          run:
+            path: sh
+            args:
+            - -exc
+            - |
+              ls -al small-file
+              ls -al large-file
 
 resources:
   - name: package-src
@@ -60,7 +79,7 @@ resources:
       password: {{docker-hub-password}}
       repository: {{docker-hub-repo}}
 
-  - name: single-file
+  - name: small-file
     type: ocios-resource
     source:
       ns:          {{oracle-namespace}}
@@ -70,7 +89,19 @@ resources:
       apikey:      {{oracle-apikey}}
       tenancy:     {{oracle-tenancy}}
       region:      {{oracle-region}}
-      regexp:      "test-([0-9]+).txt"
+      regexp:      test-([0-9]+)\.txt
+
+  - name: large-file
+    type: ocios-resource
+    source:
+      ns:          {{oracle-namespace}}
+      bucket:      "cpi-dev-releases"
+      user:        {{oracle-user}}
+      fingerprint: {{oracle-fingerprint}}
+      apikey:      {{oracle-apikey}}
+      tenancy:     {{oracle-tenancy}}
+      region:      {{oracle-region}}
+      regexp:      bosh-oracle-cpi-dev-([0-9]+\.[0-9]+\.[0-9]+)\.tgz
 
 resource_types:
   - name: ocios-resource
